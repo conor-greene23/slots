@@ -1,1 +1,426 @@
+var yesSpin = false;
+var tL = 0;
+var tM = 0;
+var tR = 0;
+var mL = 0;
+var mM = 0;
+var mR = 0;
+var bR = 0;
+var bM = 0;
+var bL = 0;
+var score=5;
+var addScore = false;
+
+//button Constructor
+var Button = function(config){
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+};
+
+//draw button prototype
+Button.prototype.draw = function() {
+    fill(0, 234, 255);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    //textAlign(LEFT, TOP);
+    text(this.label, this.x+23, this.y+this.height/1.5);
+};
+
+//checks to see if mouse is inside button
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+//spin button
+var spinButton = new Button ({
+    x:150,
+    y:318,
+    width:80,
+    label:"spin"
+});
+
+var checkWin = function(){
+if(addScore){
+    if(tL === tM && tM === tR){
+        score= score-1;
+        addScore=false;
+    }
+    else{
+    score=score-1;
+    addScore = false;
+    }
+}
+};
+
+var drawScore = function(){
+    noStroke();
+    fill(255, 255, 255);
+    rect(298,320,81,33);
+    fill(255, 0, 0);
+    fill(0, 0, 0);
+    textSize(20);
+    text("Coins: "+score, 301,348);
+};
+//draws the tiles and the score
+var scene = function(){
+for(var i = 0; i < 3; i++){
+    for(var x = 0; x < 3; x++){
+    rect(x*80+81,i*100+0,79,100);}
+}
+};
+
+//Scene of the game
+var gameScene = function(){
+scene();
+spinButton.draw();
+};
+gameScene();
+
+//checks to see which picture to draw
+var checkTL = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+    if(tL === 1){
+    rect(81,0,79,100);
+    image(getImage("cute/CharacterBoy"), 100, -9, 50, 100);
+    }
+    if(tL === 2){
+    rect(81,0,79,100);
+    image(getImage("avatars/duskpin-seed"), 100, -9, 50, 100);  
+    }
+     if(tL === 3){
+     rect(81,0,79,100);
+    image(getImage("avatars/aqualine-seed"), 100, -9, 50, 100);
+    }
+     if(tL === 4){
+      rect(81,0,79,100);
+    image(getImage("avatars/leafers-seed"), 100, -9, 50, 100);
+    }
+     if(tL === 5){
+     rect(81,0,79,100);      
+    image(getImage("avatars/piceratops-seed"), 100, -9, 50, 100);
+    }
+     if(tL === 6){
+     rect(81,0,79,100);
+    image(getImage("avatars/primosaur-seed"), 100, -9, 50, 100);
+    }
+}
+};
+var checkTM = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+   if(tL ===1){
+       rect(161,0,79,100);
+      image(getImage("cute/CharacterBoy"), 178, -9, 50, 100);
+    }
+    if(tM === 2){
+    rect(161,0,79,100);
+    image(getImage("avatars/duskpin-seed"), 178, -9, 50, 100);  
+    }
+     if(tM === 3){
+     rect(161,0,79,100);
+    image(getImage("avatars/aqualine-seed"), 178, -9, 50, 100);
+    }
+     if(tM === 4){
+      rect(161,0,79,100);
+    image(getImage("avatars/leafers-seed"), 178, -9, 50, 100);
+    }
+     if(tM === 5){
+     rect(161,0,79,100);      
+    image(getImage("avatars/piceratops-seed"), 178, -9, 50, 100);
+    }
+     if(tM === 6){
+     rect(161,0,79,100);
+    image(getImage("avatars/primosaur-seed"), 178, -9, 50, 100);
+    }
+}
+};
+var checkTR = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+   if(tR ===1){
+    rect(241,0,79,100);
+    image(getImage("cute/CharacterBoy"), 256, -9, 50, 100);
+    }
+    if(tR === 2){
+    rect(241,0,79,100);
+    image(getImage("avatars/duskpin-seed"), 256, -9, 50, 100);  
+    }
+     if(tR === 3){
+     rect(241,0,79,100);
+    image(getImage("avatars/aqualine-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 4){
+      rect(241,0,79,100);
+    image(getImage("avatars/leafers-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 5){
+     rect(241,0,79,100);      
+    image(getImage("avatars/piceratops-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 6){
+     rect(241,0,79,100);
+    image(getImage("avatars/primosaur-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 7){
+    rect(241,0,79,100);
+    image(getImage("avatars/starky-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 8){
+    rect(241,0,79,100);
+    image(getImage("cute/CharacterPinkGirl"), 256, -9, 50, 100);
+    }
+     if(tR === 9){
+     rect(241,0,79,100);
+    image(getImage("cute/CharacterPrincessGirl"), 256, -9, 50, 100);
+    }
+}
+};
+var checkML = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+    if(mL === 1){
+    rect(81,100,79,100);
+    image(getImage("cute/CharacterBoy"), 100, 95, 50, 100);
+    }
+    if(mL === 2){
+    rect(81,100,79,100);
+    image(getImage("avatars/duskpin-seed"), 100, 95, 50, 100);  
+    }
+     if(mL === 3){
+     rect(81,100,79,100);
+    image(getImage("avatars/aqualine-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 4){
+      rect(81,100,79,100);
+    image(getImage("avatars/leafers-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 5){
+     rect(81,100,79,100);      
+    image(getImage("avatars/piceratops-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 6){
+     rect(81,100,79,100);
+    image(getImage("avatars/primosaur-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 7){
+    rect(81,100,79,100);
+    image(getImage("avatars/starky-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 8){
+    rect(81,100,79,100);
+    image(getImage("cute/CharacterPinkGirl"), 100, 95, 50, 100);
+    }
+     if(mL === 9){
+     rect(81,100,79,100);
+    image(getImage("cute/CharacterPrincessGirl"), 100, 95, 50, 100);
+    }
+}
+};
+var checkMM = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+   if(mL ===1){
+    rect(161,100,79,100);
+    image(getImage("cute/CharacterBoy"), 178, 95, 50, 100);
+    }
+    if(mM === 2){
+    rect(161,100,79,100);
+    image(getImage("avatars/duskpin-seed"), 178, 95, 50, 100);  
+    }
+     if(mM === 3){
+     rect(161,100,79,100);
+    image(getImage("avatars/aqualine-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 4){
+      rect(161,100,79,100);
+    image(getImage("avatars/leafers-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 5){
+     rect(161,100,79,100);      
+    image(getImage("avatars/piceratops-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 6){
+     rect(161,100,79,100);
+    image(getImage("avatars/primosaur-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 7){
+    rect(161,100,79,100);
+    image(getImage("avatars/starky-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 8){
+    rect(161,100,79,100);
+    image(getImage("cute/CharacterPinkGirl"), 178, 95, 50, 100);
+    }
+     if(mM === 9){
+     rect(161,100,79,100);
+    image(getImage("cute/CharacterPrincessGirl"), 178, 95, 50, 100);
+    }
+}
+};
+var checkMR = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+   if(mR ===1){
+    rect(241,100,79,100);
+    image(getImage("cute/CharacterBoy"), 256, 95, 50, 100);
+    }
+    if(mR === 2){
+    rect(241,100,79,100);
+    image(getImage("avatars/duskpin-seed"), 256, 95, 50, 100);  
+    }
+     if(mR === 3){
+     rect(241,100,79,100);
+    image(getImage("avatars/aqualine-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 4){
+      rect(241,100,79,100);
+    image(getImage("avatars/leafers-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 5){
+     rect(241,100,79,100);      
+    image(getImage("avatars/piceratops-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 6){
+     rect(241,100,79,100);
+    image(getImage("avatars/primosaur-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 7){
+    rect(241,100,79,100);
+    image(getImage("avatars/starky-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 8){
+    rect(241,100,79,100);
+    image(getImage("cute/CharacterPinkGirl"), 256, 95, 50, 100);
+    }
+     if(mR === 9){
+     rect(241,100,79,100);
+    image(getImage("cute/CharacterPrincessGirl"), 256, 95, 50, 100);
+    }
+}
+};
+var checkBL = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+    if(tL === 1){
+    rect(81,200,79,100);
+    image(getImage("cute/CharacterBoy"), 100, 185, 50, 100);
+    }
+    if(tL === 2){
+    rect(81,200,79,100);
+    image(getImage("avatars/duskpin-seed"), 100, 185, 50, 100);  
+    }
+     if(tL === 3){
+     rect(81,200,79,100);
+    image(getImage("avatars/aqualine-seed"), 100, 185, 50, 100);
+    }
+     if(tL === 4){
+      rect(81,200,79,100);
+    image(getImage("avatars/leafers-seed"), 100, 185, 50, 100);
+    }
+     if(tL === 5){
+     rect(81,200,79,100);      
+    image(getImage("avatars/piceratops-seed"), 100, 185, 50, 100);
+    }
+     if(tL === 6){
+     rect(81,200,79,100);
+    image(getImage("avatars/primosaur-seed"), 100, 185, 50, 100);
+    }
+    }
+};
+var checkBM = function(){
+if(yesSpin){
+    fill(255, 255, 255);
+   if(tL ===1){
+      image(getImage("cute/CharacterBoy"), 178, 185, 50, 100);
+    }
+    if(tM === 2){
+    rect(161,0,79,100);
+    image(getImage("avatars/duskpin-seed"), 178, 185, 50, 100);  
+    }
+     if(tM === 3){
+     rect(161,200,79,100);
+    image(getImage("avatars/aqualine-seed"), 178, 185, 50, 100);
+    }
+     if(tM === 4){
+      rect(161,200,79,100);
+    image(getImage("avatars/leafers-seed"), 178, 185, 50, 100);
+    }
+     if(tM === 5){
+     rect(161,200,79,100);      
+    image(getImage("avatars/piceratops-seed"), 178, 185, 50, 100);
+    }
+     if(tM === 6){
+     rect(161,200,79,100);
+    image(getImage("avatars/primosaur-seed"), 178, 185, 50, 100);
+    }
+}
+};
+var checkBR = function(){
+    if(yesSpin){
+    fill(255, 255, 255);
+   if(mR ===1){
+    rect(241,200,79,100);
+    image(getImage("cute/CharacterBoy"), 256, 185, 50, 100);
+    }
+    if(mR === 2){
+    rect(241,200,79,100);
+    image(getImage("avatars/duskpin-seed"), 256, 185, 50, 100);  
+    }
+     if(mR === 3){
+     rect(241,200,79,100);
+    image(getImage("avatars/aqualine-seed"), 256, 185, 50, 100);
+    }
+     if(mR === 4){
+      rect(241,200,79,100);
+    image(getImage("avatars/leafers-seed"), 256, 185, 50, 100);
+    }
+     if(mR === 5){
+     rect(241,200,79,100);      
+    image(getImage("avatars/piceratops-seed"), 256, 185, 50, 100);
+    }
+     if(mR === 6){
+     rect(241,200,79,100);
+    image(getImage("avatars/primosaur-seed"), 256, 185, 50, 100);
+    }
+}
+};
+draw= function() {
+    checkTL();
+    checkTM();
+    checkTR();
+    checkML();
+    checkMM();
+    checkMR();
+    checkBL();
+    checkBM();
+    checkBR();
+    drawScore();
+};
+
+mouseClicked = function() {
+    if(spinButton.isMouseInside()){
+       yesSpin = true;
+        tL = round(random(1,6)); 
+        tM = round(random(1,6));
+        tR = round(random(1,6)); 
+        mL = round(random(1,6));
+        mM = round(random(1,6)); 
+        mR = round(random(1,6));
+        bL = round(random(1,6)); 
+        bM = round(random(1,6));
+        bR = round(random(1,6));
+        checkWin();
+        addScore = true;
+    }
+    
+};
+
 
