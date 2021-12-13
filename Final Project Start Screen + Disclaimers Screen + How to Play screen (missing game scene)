@@ -1,0 +1,311 @@
+//global variables to control x + y positions
+var basicX = 0;
+var basicY = -73;
+
+//global variale to control scene
+var currentScene = 0;
+
+//Connors bitmoji code
+var drawHead = function(bitX,bitY,bitSize)
+{
+fill(237, 202, 164);
+ellipse(bitX + 100*bitSize/150,bitY + 100*bitSize/150,bitSize/150*76,bitSize/150*140); //head
+};
+var drawExtra = function(bitX,bitY,bitSize)
+{
+fill(255, 0, 0);
+arc(bitX + 100*bitSize/150,bitY + 79*bitSize/150, bitSize/150*84, bitSize/150*100, 180, 360);
+arc(bitX + 100*bitSize/150, bitY + 79*bitSize/150, bitSize/150*116, bitSize/150*24, 180, 360); //hat
+
+stroke(0, 0, 0);
+fill(237, 202, 164);
+ellipse(bitX + 116*bitSize/150,bitY + 96*bitSize/150, bitSize/150*22, bitSize/150*10);
+ellipse(bitX + 87*bitSize/150,bitY + 96*bitSize/150, bitSize/150*22, bitSize/150*10);
+line(bitX + 98*bitSize/150,bitY + 95*bitSize/150,bitX + 104*bitSize/150, bitY + 95*bitSize/150);
+line(bitX + 138*bitSize/150,bitY + 98*bitSize/150,bitX + 127*bitSize/150, bitY + 95*bitSize/150); 
+line(bitX + 62*bitSize/150,bitY + 100*bitSize/150,bitX + 77*bitSize/150,bitY + 95*bitSize/150); //glasses
+};
+var drawFace = function(bitX,bitY,bitSize)
+{
+fill(243, 245, 177);
+noStroke();
+ellipse(bitX + 116*bitSize/150,bitY + 96*bitSize/150, bitSize/150*13, bitSize/150*5);
+ellipse(bitX + 86*bitSize/150, bitY + 96*bitSize/150, bitSize/150*13, bitSize/150*5); //eyes socket
+
+fill(51, 153, 156);
+ellipse(bitX + 116*bitSize/150,bitY + 96*bitSize/150, bitSize/150*6, bitSize/150*5);
+ellipse(bitX + 86*bitSize/150,bitY + 96*bitSize/150, bitSize/150*6, bitSize/150*5); //eyes
+
+fill(255, 255, 255);
+stroke(0, 0, 0);
+arc(bitX + 101*bitSize/150, bitY + 122*bitSize/150, bitSize/150*38, bitSize/150*26, 1, 180); 
+line(bitX + 82*bitSize/150,bitY + 122*bitSize/150,bitX + 120*bitSize/150,bitY + 122*bitSize/150); //smile
+
+fill(237, 202, 164);
+bezier(bitX + 102*bitSize/150,bitY + 102*bitSize/150,bitX + 113*bitSize/150,bitY + 109*bitSize/150,bitX + 104*bitSize/150,bitY + 117*bitSize/150,bitX + 96*bitSize/150,bitY + 114*bitSize/150); //nose
+};
+var drawShirt = function(bitX,bitY,bitSize)
+{
+fill(255, 0, 0);
+noStroke();
+quad(bitX + 95*bitSize/150,bitY + 159*bitSize/150,bitX + 144*bitSize/150,bitY + 144*bitSize/150,bitX + 144*bitSize/150,bitY + 210*bitSize/150,bitX + 95*bitSize/150,bitY + 212*bitSize/150);
+quad(bitX + 63*bitSize/150,bitY + 145*bitSize/150,bitX + 104*bitSize/150,bitY + 159*bitSize/150,bitX + 97*bitSize/150,bitY +  212*bitSize/150,bitX + 59*bitSize/150,bitY + 212*bitSize/150); //shirt
+
+fill(255, 255, 255);
+textSize(40*bitSize/150);
+text("CG",bitX + 73*bitSize/150,bitY + 161*bitSize/150);
+};
+var drawBit = function (bitX,bitY,bitSize)
+{
+drawHead (bitX,bitY,bitSize);
+drawExtra (bitX,bitY,bitSize);
+drawFace (bitX,bitY,bitSize);
+drawShirt (bitX,bitY,bitSize);
+};
+
+//khan button class
+var Button = function(config) {
+    this.color = config.color || fill(255, 255, 255);
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+Button.prototype.draw = function() {
+    fill(this.color);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    textAlign(LEFT, TOP);
+    text(this.label, this.x+10, this.y+this.height/4);
+};
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+
+//button to take you to home screen
+var homeButton = new Button ({ 
+    x: 320,
+    y: 340,
+    width:70,
+    label: "Home",
+    onClick: function() {
+        currentScene = 0;
+    }
+});
+
+//start button 
+var startButton = new Button({
+    x: 100,
+    y: 130,
+    width:200,
+    label: "       Start Game",
+    onClick: function() {
+        currentScene = 1;
+    }
+});
+
+//rules button
+var disclaimersButton = new Button({
+    x: 100,
+    y: 270,
+    width:200,
+    label: "       Disclaimers",
+    onClick: function() {
+        currentScene = 3;
+    }
+});
+
+//how to play button
+var howToPlayButton = new Button ({
+    x: 100,
+    y: 200,
+    width:200,
+    label: "      How To Play",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+//splash screen function
+var splashScreen = function () {
+ //circle to go behind "space casino" text 
+fill(255, 0, 0);
+ellipse(200,53,295,80);
+
+//squares to go behind buttons
+rect(98,127,204,57);
+rect(98,196,204,57);
+rect(98,267,204,57);
+
+//logo text
+textSize(40);
+fill(255, 255, 255);
+text("Space Casino",basicX + 74, basicY + 100);
+fill(196, 14, 14);
+text("Space Casino",basicX + 75, basicY + 102);
+
+//buttons
+startButton.draw();
+howToPlayButton.draw();
+disclaimersButton.draw();   
+    
+//connors bitmoji
+drawBit(-11,100,84);
+    
+    
+};
+
+//game screen function
+var gameScreen = function() { 
+    
+    
+};
+
+//disclaimers screen function
+var disclaimersScreen = function() {
+
+//background
+background(0, 0, 0);
+
+//for loop to draw stars in back 
+for (var i = 0; i < 10; i++) {
+    fill(255, 255, 255);
+    rect(random(1,384),random(1,386), 5, 5);
+}
+
+ //circle to go behind "space casino" text 
+fill(255, 0, 0);
+ellipse(200,71,307,133);
+
+
+//logo text
+textSize(40);
+fill(255, 255, 255);
+text("Space Casino",basicX + 74, basicY + 100);
+fill(196, 14, 14);
+text("Space Casino",basicX + 75, basicY + 102);
+fill(255, 255, 255);
+text("Disclaimers",basicX + 104, basicY + 148);
+fill(196, 14, 14);
+text("Disclaimers",basicX + 105, basicY + 150);
+
+//squares to go behind disclaimers text
+fill(255, 0, 0);
+rect(8,169,386,137);
+
+//disclaimers text
+textSize(18);
+fill(255, 255, 255);
+text("1. The currency used is FAKE and you will not", 15,175);
+text("be paid", 15, 193);
+text("2. We are not responsible for any gambling", 15,215); 
+text("addictions",15,233);
+text("3. We do not encourage those under 18 to play" ,15,260);
+text("the Space Casino", 15,278);
+
+//square to go behind button
+fill(255, 0, 0);
+rect(317,336,75,57);
+
+//button that brings you home
+homeButton.draw();
+};
+
+//how to play screen function
+var howToPlayScreen = function() {
+    //global variables to control x + y positions
+var basicX = 0;
+var basicY = -36;
+
+//background
+background(0, 0, 0);
+
+//for loop to draw stars in back 
+for (var i = 0; i < 10; i++) {
+    fill(255, 255, 255);
+    rect(random(1,384),random(1,386), 5, 5);
+}
+
+ //circle to go behind "space casino" text 
+fill(255, 0, 0);
+ellipse(200,71,307,133);
+
+
+//logo text
+textSize(40);
+fill(255, 255, 255);
+text("How To Play",basicX + 86, basicY + 60);
+fill(196, 14, 14);
+text("How To Play",basicX + 87, basicY + 62);
+fill(255, 255, 255);
+text("Space Casino",basicX + 75, basicY + 98);
+fill(196, 14, 14);
+text("Space Casino",basicX + 76, basicY + 100);
+
+//squares to go behind disclaimers text
+fill(255, 0, 0);
+rect(8,154,386,144);
+
+//disclaimers text
+textSize(18);
+fill(255, 255, 255);
+text("1. Click the ''spin'' button.", 15,160);
+text("2. The game will automatically ''spin'' and nine", 15,187); 
+text("random images will show up.",15,205);
+text("3. Based upon what combination of images you" ,15,232);
+text("got the Space Casino will automatically reward", 15,250);
+text("you our in game currency!", 15,268);
+    
+//square to go behind button
+fill(255, 0, 0);
+rect(317,336,75,57);
+
+//button that brings you home
+homeButton.draw();
+};
+
+//draw function 
+draw = function() {
+     
+//background
+background(0, 0, 0);
+
+//for loop to draw stars in back 
+for (var i = 0; i < 10; i++) {
+    fill(255, 255, 255);
+    rect(random(1,384),random(1,386), 5, 5);
+}
+
+// if statement to switch between sceenes
+if (currentScene === 0) {
+    splashScreen(); //calls start scene 
+    }
+if (currentScene === 1) {
+    gameScreen(); //calls game scene
+    }
+if (currentScene === 2) {
+    howToPlayScreen(); //calls how to play scene
+    }   
+if (currentScene === 3) {
+    disclaimersScreen(); //calls disclaimers scene 
+    }
+};
+
+//mouse clicked function
+mouseClicked = function() {
+   //startButton.handleMouseClick(); //handles button click
+    howToPlayButton.handleMouseClick(); //handles button click
+    disclaimersButton.handleMouseClick(); //handles button click
+    homeButton.handleMouseClick(); //handles button click
+};
