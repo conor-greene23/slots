@@ -1,0 +1,818 @@
+//global variables to control x + y positions
+var basicX = 0;
+var basicY = -73;
+
+//global varribles to control game
+var yesSpin = false;
+var tL = 0;
+var tM = 0;
+var tR = 0;
+var mL = 0;
+var mM = 0;
+var mR = 0;
+var bR = 0;
+var bM = 0;
+var bL = 0;
+var score=7;
+var addScore = false; 
+var delScore = false;
+
+//global variale to control scene
+var currentScene = 0;
+
+//Amir's bitmoji code
+var head=function(x,y,bodH){
+  
+noStroke();
+ //lefthair
+    fill(10, 10, 10);
+    quad(x+(bodH/328*145),y-(bodH/328*22),x+(bodH/328*83),y+(bodH/328*14),x+(bodH/328*61),y-(bodH/328*29),x+(bodH/328*67),y-(bodH/328*30));
+//righthair
+    fill(10, 10, 10);
+    quad(x+(bodH/328*168),y-(bodH/328*26),x+(bodH/328*147),y+(bodH/328*15),x+(bodH/328*142),y-(bodH/328*22),x+(bodH/328*120),y-(bodH/328*30));
+//head
+    fill(163,116,68);
+    ellipse (x+(bodH/328*114),y+(bodH/328*1),(bodH/328*65),(bodH/328*98));
+//hat
+    fill(173, 171, 171);
+    bezier(x+(bodH/328*86),y+(bodH/328*-26),x+(bodH/328*82),y-(bodH/328*89),x+(bodH/328*156),y-(bodH/328*64),x+(bodH/328*143),y-(bodH/328*26));
+    fill(207, 12, 12);
+    textSize((bodH/328*21));
+    text("B",x+(bodH/328*108),y-(bodH/328*42));
+    line(x+(bodH/328*81),y-(bodH/328*25),x+(bodH/328*143),y-(bodH/328*26));
+
+//nose
+    fill	(163,116,68);
+    arc(x+(bodH/328*114),y+(bodH/328*8),(bodH/328*17),(bodH/328*13),(bodH/328*-30),(bodH/328*328));
+    fill(5, 4, 4);
+    ellipse(x+(bodH/328*111),y+(bodH/328*11),(bodH/328*3),(bodH/328*3));//left nose hole
+    ellipse(x+(bodH/328*119),y+(bodH/328*11),(bodH/328*3),(bodH/328*3));//right nose hole
+//mouth
+    fill(255, 255, 255);
+    arc(x+(bodH/328*113),y+(bodH/328*26),(bodH/328*17),(bodH/328*24),-14,194);
+    fill(235, 181, 184);
+    arc(x+(bodH/328*113),y+(bodH/328*26),(bodH/328*17),(bodH/328*10),-196,25);//upperlip
+    arc(x+(bodH/328*114),y+(bodH/328*33),(bodH/328*17),(bodH/328*10),-30,194);//lowerlip
+
+
+//righteye
+    fill(0, 0, 0);
+    rect(x+(bodH/328*93),y-(bodH/328*17),(bodH/328*40),(bodH/328*3));//eyebrow
+    fill (247, 244, 244);
+    ellipse(x+(bodH/328*101),y-(bodH/328*6),(bodH/328*11),(bodH/328*12)); 
+//lefteye
+    fill (247, 244, 244);
+    ellipse(x+(bodH/328*127),y-(bodH/328*6),(bodH/328*11),(bodH/328*12));
+
+//leftpupil
+    fill(107, 55, 0);
+    ellipse(x+(bodH/328*101),y-(bodH/328*6),(bodH/328*7),(bodH/328*7));
+    fill(13,13,13);
+    ellipse(x+(bodH/328*101),y-(bodH/328*6),(bodH/328*1),(bodH/328*-2));
+//rightpupil
+    fill(107, 55, 0);
+    ellipse(x+(bodH/328*127),y-(bodH/328*6),(bodH/328*7),(bodH/328*7));
+    fill(13, 13, 13);
+    ellipse(x+(bodH/328*127),y-(bodH/328*6),(bodH/328*1),(bodH/328*-2));   
+    
+};
+var body=function(x,y,bodH) {
+ noStroke();
+//shirt
+    fill(10, 9, 9);
+    quad(x+(bodH/328*145),y+(bodH/328*136),x+(bodH/328*80),y+(bodH/328*132),x+(bodH/328*80),y+(bodH/328*55),x+(bodH/328*150),y+(bodH/328*55));
+    fill(163,116,68);
+    arc(x+(bodH/328*115),y+(bodH/328*36),(bodH/328*25),(bodH/328*71),33,145);//neck
+    fill(255, 0, 0);
+    textSize((bodH/328*36));
+    text("AR",x+(bodH/328*93),y+(bodH/328*104));
+
+
+//rightarm
+    fill(13, 13, 13);
+    quad(x+(bodH/328*78),y+(bodH/328*56),x+(bodH/328*91),y+(bodH/328*63),x+(bodH/328*60),y+(bodH/328*121),x+(bodH/328*54),y+(bodH/328*106));
+  fill(163,116,68);
+     ellipse(x+(bodH/328*56),y+(bodH/328*115),(bodH/328*21),(bodH/328*25));//righthand
+//leftarm
+    fill(13, 13, 13);
+    quad(x+(bodH/328*152),y+(bodH/328*56),x+(bodH/328*143),y+(bodH/328*63),x+(bodH/328*164),y+(bodH/328*121),x+(bodH/328*176),y+(bodH/328*111));
+   
+    fill(163,116,68);
+     ellipse(x+(bodH/328*170),y+(bodH/328*120),(bodH/328*21),(bodH/328*25));//righthand
+
+};
+var sexy= function(x,y,bodH) {
+  
+    body(x,y,bodH);
+    head(x,y,bodH);
+};
+//Connors bitmoji code
+var drawHead = function(bitX,bitY,bitSize)
+{
+fill(237, 202, 164);
+ellipse(bitX + 100*bitSize/150,bitY + 100*bitSize/150,bitSize/150*76,bitSize/150*140); //head
+};
+var drawExtra = function(bitX,bitY,bitSize)
+{
+fill(255, 0, 0);
+arc(bitX + 100*bitSize/150,bitY + 79*bitSize/150, bitSize/150*84, bitSize/150*100, 180, 360);
+arc(bitX + 100*bitSize/150, bitY + 79*bitSize/150, bitSize/150*116, bitSize/150*24, 180, 360); //hat
+
+stroke(0, 0, 0);
+fill(237, 202, 164);
+ellipse(bitX + 116*bitSize/150,bitY + 96*bitSize/150, bitSize/150*22, bitSize/150*10);
+ellipse(bitX + 87*bitSize/150,bitY + 96*bitSize/150, bitSize/150*22, bitSize/150*10);
+line(bitX + 98*bitSize/150,bitY + 95*bitSize/150,bitX + 104*bitSize/150, bitY + 95*bitSize/150);
+line(bitX + 138*bitSize/150,bitY + 98*bitSize/150,bitX + 127*bitSize/150, bitY + 95*bitSize/150); 
+line(bitX + 62*bitSize/150,bitY + 100*bitSize/150,bitX + 77*bitSize/150,bitY + 95*bitSize/150); //glasses
+};
+var drawFace = function(bitX,bitY,bitSize)
+{
+fill(243, 245, 177);
+noStroke();
+ellipse(bitX + 116*bitSize/150,bitY + 96*bitSize/150, bitSize/150*13, bitSize/150*5);
+ellipse(bitX + 86*bitSize/150, bitY + 96*bitSize/150, bitSize/150*13, bitSize/150*5); //eyes socket
+
+fill(51, 153, 156);
+ellipse(bitX + 116*bitSize/150,bitY + 96*bitSize/150, bitSize/150*6, bitSize/150*5);
+ellipse(bitX + 86*bitSize/150,bitY + 96*bitSize/150, bitSize/150*6, bitSize/150*5); //eyes
+
+fill(255, 255, 255);
+stroke(0, 0, 0);
+arc(bitX + 101*bitSize/150, bitY + 122*bitSize/150, bitSize/150*38, bitSize/150*26, 1, 180); 
+line(bitX + 82*bitSize/150,bitY + 122*bitSize/150,bitX + 120*bitSize/150,bitY + 122*bitSize/150); //smile
+
+fill(237, 202, 164);
+bezier(bitX + 102*bitSize/150,bitY + 102*bitSize/150,bitX + 113*bitSize/150,bitY + 109*bitSize/150,bitX + 104*bitSize/150,bitY + 117*bitSize/150,bitX + 96*bitSize/150,bitY + 114*bitSize/150); //nose
+};
+var drawShirt = function(bitX,bitY,bitSize)
+{
+fill(255, 0, 0);
+noStroke();
+quad(bitX + 95*bitSize/150,bitY + 159*bitSize/150,bitX + 144*bitSize/150,bitY + 144*bitSize/150,bitX + 144*bitSize/150,bitY + 210*bitSize/150,bitX + 95*bitSize/150,bitY + 212*bitSize/150);
+quad(bitX + 63*bitSize/150,bitY + 145*bitSize/150,bitX + 104*bitSize/150,bitY + 159*bitSize/150,bitX + 97*bitSize/150,bitY +  212*bitSize/150,bitX + 59*bitSize/150,bitY + 212*bitSize/150); //shirt
+
+fill(255, 255, 255);
+textSize(40*bitSize/150);
+text("CG",bitX + 73*bitSize/150,bitY + 161*bitSize/150);
+};
+var drawBit = function (bitX,bitY,bitSize)
+{
+drawHead (bitX,bitY,bitSize);
+drawExtra (bitX,bitY,bitSize);
+drawFace (bitX,bitY,bitSize);
+drawShirt (bitX,bitY,bitSize);
+};
+
+//khan button class
+var Button = function(config) {
+    this.color = config.color || fill(255, 255, 255);
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 150;
+    this.height = config.height || 50;
+    this.label = config.label || "Click";
+    this.onClick = config.onClick || function() {};
+};
+Button.prototype.draw = function() {
+    fill(this.color);
+    rect(this.x, this.y, this.width, this.height, 5);
+    fill(0, 0, 0);
+    textSize(19);
+    textAlign(LEFT, TOP);
+    text(this.label, this.x+10, this.y+this.height/4);
+};
+Button.prototype.isMouseInside = function() {
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+Button.prototype.handleMouseClick = function() {
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+
+//button to take you to home screen
+var homeButton = new Button ({ 
+    x: 320,
+    y: 340,
+    width:70,
+    label: "Home",
+    onClick: function() {
+        currentScene = 0;
+    }
+});
+
+//start button 
+var startButton = new Button({
+    x: 100,
+    y: 130,
+    width:200,
+    label: "       Start Game",
+    onClick: function() {
+        currentScene = 1;
+    }
+});
+
+//rules button
+var disclaimersButton = new Button({
+    x: 100,
+    y: 270,
+    width:200,
+    label: "       Disclaimers",
+    onClick: function() {
+        currentScene = 3;
+    }
+});
+
+//how to play button
+var howToPlayButton = new Button ({
+    x: 100,
+    y: 200,
+    width:200,
+    label: "      How To Play",
+    onClick: function() {
+        currentScene = 2;
+    }
+});
+
+//spin button
+var spinButton = new Button ({
+    x:150,
+    y:318,
+    width:80,
+    label:" SPIN"
+});
+
+//checks to see if they should add a coin
+var checkWin = function(){
+if(addScore){
+    if(tL === tM && tM === tR){
+        score= score+1;
+        addScore=false;
+    }
+    if(mL === mM && mM === mR){
+        score= score+1;
+        addScore=false;
+    }
+    if(bL === bM && bM === bR){
+        score= score+1;
+        addScore=false;
+    }
+    if(tL === mM && mM === bR){
+        score= score+1;
+        addScore=false;
+    }
+    if(bL === mM && mM === tR){
+        score= score+1;
+        addScore=false;
+    }
+    if(tL === mL && mL === bL){
+        score= score+1;
+        addScore=false;
+    }
+    if(tM === mM && mM === bM){
+        score= score+1;
+        addScore=false;
+    }
+    if(tR === mR && mR === bR){
+        score= score+1;
+        addScore=false;
+    }
+    else{
+  delScore = true;
+  addScore = false;
+    }
+}
+};
+
+//checks to see if they should take a way coin
+var checkDel = function(){
+if(delScore) 
+{score = score -1;
+delScore=false;
+}
+if (score === 0){
+    currentScene = 5;
+}
+};
+//draws the score on screen
+var drawScore = function(){
+    noStroke();
+    fill(255, 255, 255);
+    rect(8,357,122,33);
+    fill(255, 0, 0);
+    fill(0, 0, 0);
+    textSize(20);
+    text("Coins: "+score, 11,363);
+};
+//draws the tiles and the score
+var scene = function(){
+for(var i = 0; i < 3; i++){
+    for(var x = 0; x < 3; x++){
+    stroke(255, 0, 0);
+    fill(255, 255, 255,0);
+    rect(x*80+81,i*100+0,79,100);}
+}
+};
+
+//checks to see which picture to draw
+var checkTL = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+    if(tL === 1){
+    rect(81,0,79,100);
+    image(getImage("cute/CharacterBoy"), 100, -9, 50, 100);
+    }
+    if(tL === 2){
+    rect(81,0,79,100);
+    image(getImage("avatars/duskpin-seed"), 100, -9, 50, 100);  
+    }
+     if(tL === 3){
+     rect(81,0,79,100);
+    image(getImage("avatars/aqualine-seed"), 100, -9, 50, 100);
+    }
+     if(tL === 4){
+      rect(81,0,79,100);
+    image(getImage("avatars/leafers-seed"), 100, -9, 50, 100);
+    }
+     if(tL === 5){
+     rect(81,0,79,100);      
+    image(getImage("avatars/piceratops-seed"), 100, -9, 50, 100);
+    }
+     if(tL === 6){
+     rect(81,0,79,100);
+    image(getImage("avatars/primosaur-seed"), 100, -9, 50, 100);
+    }
+}
+};
+var checkTM = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+   if(tL ===1){
+       rect(161,0,79,100);
+      image(getImage("cute/CharacterBoy"), 178, -9, 50, 100);
+    }
+    if(tM === 2){
+    rect(161,0,79,100);
+    image(getImage("avatars/duskpin-seed"), 178, -9, 50, 100);  
+    }
+     if(tM === 3){
+     rect(161,0,79,100);
+    image(getImage("avatars/aqualine-seed"), 178, -9, 50, 100);
+    }
+     if(tM === 4){
+      rect(161,0,79,100);
+    image(getImage("avatars/leafers-seed"), 178, -9, 50, 100);
+    }
+     if(tM === 5){
+     rect(161,0,79,100);      
+    image(getImage("avatars/piceratops-seed"), 178, -9, 50, 100);
+    }
+     if(tM === 6){
+     rect(161,0,79,100);
+    image(getImage("avatars/primosaur-seed"), 178, -9, 50, 100);
+    }
+}
+};
+var checkTR = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+   if(tR ===1){
+    rect(241,0,79,100);
+    image(getImage("cute/CharacterBoy"), 256, -9, 50, 100);
+    }
+    if(tR === 2){
+    rect(241,0,79,100);
+    image(getImage("avatars/duskpin-seed"), 256, -9, 50, 100);  
+    }
+     if(tR === 3){
+     rect(241,0,79,100);
+    image(getImage("avatars/aqualine-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 4){
+      rect(241,0,79,100);
+    image(getImage("avatars/leafers-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 5){
+     rect(241,0,79,100);      
+    image(getImage("avatars/piceratops-seed"), 256, -9, 50, 100);
+    }
+     if(tR === 6){
+     rect(241,0,79,100);
+    image(getImage("avatars/primosaur-seed"), 256, -9, 50, 100);
+    }
+}
+};
+var checkML = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+    if(mL === 1){
+    rect(81,100,79,100);
+    image(getImage("cute/CharacterBoy"), 100, 95, 50, 100);
+    }
+    if(mL === 2){
+    rect(81,100,79,100);
+    image(getImage("avatars/duskpin-seed"), 100, 95, 50, 100);  
+    }
+     if(mL === 3){
+     rect(81,100,79,100);
+    image(getImage("avatars/aqualine-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 4){
+      rect(81,100,79,100);
+    image(getImage("avatars/leafers-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 5){
+     rect(81,100,79,100);      
+    image(getImage("avatars/piceratops-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 6){
+     rect(81,100,79,100);
+    image(getImage("avatars/primosaur-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 7){
+    rect(81,100,79,100);
+    image(getImage("avatars/starky-seed"), 100, 95, 50, 100);
+    }
+     if(mL === 8){
+    rect(81,100,79,100);
+    image(getImage("cute/CharacterPinkGirl"), 100, 95, 50, 100);
+    }
+     if(mL === 9){
+     rect(81,100,79,100);
+    image(getImage("cute/CharacterPrincessGirl"), 100, 95, 50, 100);
+    }
+}
+};
+var checkMM = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+   if(mM ===1){
+    rect(161,100,79,100);
+    image(getImage("cute/CharacterBoy"), 178, 95, 50, 100);
+    }
+    if(mM === 2){
+    rect(161,100,79,100);
+    image(getImage("avatars/duskpin-seed"), 178, 95, 50, 100);  
+    }
+     if(mM === 3){
+     rect(161,100,79,100);
+    image(getImage("avatars/aqualine-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 4){
+      rect(161,100,79,100);
+    image(getImage("avatars/leafers-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 5){
+     rect(161,100,79,100);      
+    image(getImage("avatars/piceratops-seed"), 178, 95, 50, 100);
+    }
+     if(mM === 6){
+     rect(161,100,79,100);
+    image(getImage("avatars/primosaur-seed"), 178, 95, 50, 100);
+    }
+}
+};
+var checkMR = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+   if(mR ===1){
+    rect(241,100,79,100);
+    image(getImage("cute/CharacterBoy"), 256, 95, 50, 100);
+    }
+    if(mR === 2){
+    rect(241,100,79,100);
+    image(getImage("avatars/duskpin-seed"), 256, 95, 50, 100);  
+    }
+     if(mR === 3){
+     rect(241,100,79,100);
+    image(getImage("avatars/aqualine-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 4){
+      rect(241,100,79,100);
+    image(getImage("avatars/leafers-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 5){
+     rect(241,100,79,100);      
+    image(getImage("avatars/piceratops-seed"), 256, 95, 50, 100);
+    }
+     if(mR === 6){
+     rect(241,100,79,100);
+    image(getImage("avatars/primosaur-seed"), 256, 95, 50, 100);
+    }
+}
+};
+var checkBL = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+    if(bL === 1){
+    rect(81,200,79,100);
+    image(getImage("cute/CharacterBoy"), 100, 185, 50, 100);
+    }
+    if(bL === 2){
+    rect(81,200,79,100);
+    image(getImage("avatars/duskpin-seed"), 100, 185, 50, 100);  
+    }
+     if(bL === 3){
+     rect(81,200,79,100);
+    image(getImage("avatars/aqualine-seed"), 100, 185, 50, 100);
+    }
+     if(bL === 4){
+      rect(81,200,79,100);
+    image(getImage("avatars/leafers-seed"), 100, 185, 50, 100);
+    }
+     if(bL === 5){
+     rect(81,200,79,100);      
+    image(getImage("avatars/piceratops-seed"), 100, 185, 50, 100);
+    }
+     if(bL === 6){
+     rect(81,200,79,100);
+    image(getImage("avatars/primosaur-seed"), 100, 185, 50, 100);
+    }
+    }
+};
+var checkBM = function(){
+if(yesSpin){
+    fill(255, 255, 255,0);
+   if(bM ===1){
+        rect(161,200,79,100);
+      image(getImage("cute/CharacterBoy"), 178, 185, 50, 100);
+    }
+    if(bM === 2){
+    rect(161,200,79,100);
+    image(getImage("avatars/duskpin-seed"), 178, 185, 50, 100);  
+    }
+     if(bM === 3){
+     rect(161,200,79,100);
+    image(getImage("avatars/aqualine-seed"), 178, 185, 50, 100);
+    }
+     if(bM === 4){
+      rect(161,200,79,100);
+    image(getImage("avatars/leafers-seed"), 178, 185, 50, 100);
+    }
+     if(bM === 5){
+     rect(161,200,79,100);      
+    image(getImage("avatars/piceratops-seed"), 178, 185, 50, 100);
+    }
+     if(bM === 6){
+     rect(161,200,79,100);
+    image(getImage("avatars/primosaur-seed"), 178, 185, 50, 100);
+    }
+}
+};
+var checkBR = function(){
+    if(yesSpin){
+    fill(255, 255, 255,0);
+   if(bR ===1){
+    rect(241,200,79,100);
+    image(getImage("cute/CharacterBoy"), 256, 185, 50, 100);
+    }
+    if(bR === 2){
+    rect(241,200,79,100);
+    image(getImage("avatars/duskpin-seed"), 256, 185, 50, 100);  
+    }
+     if(bR === 3){
+     rect(241,200,79,100);
+    image(getImage("avatars/aqualine-seed"), 256, 185, 50, 100);
+    }
+     if(bR === 4){
+      rect(241,200,79,100);
+    image(getImage("avatars/leafers-seed"), 256, 185, 50, 100);
+    }
+     if(bR === 5){
+     rect(241,200,79,100);      
+    image(getImage("avatars/piceratops-seed"), 256, 185, 50, 100);
+    }
+     if(bR === 6){
+     rect(241,200,79,100);
+    image(getImage("avatars/primosaur-seed"), 256, 185, 50, 100);
+    }
+}
+};
+
+//splash screen function
+var splashScreen = function () {
+ //circle to go behind "space casino" text 
+fill(255, 0, 0);
+ellipse(200,53,295,80);
+
+//squares to go behind buttons
+rect(98,127,204,57);
+rect(98,196,204,57);
+rect(98,267,204,57);
+
+//logo text
+textSize(40);
+fill(255, 255, 255);
+text("Space Casino",basicX + 74, basicY + 100);
+fill(196, 14, 14);
+text("Space Casino",basicX + 75, basicY + 102);
+
+//buttons
+startButton.draw();
+howToPlayButton.draw();
+disclaimersButton.draw();   
+    
+//connors bitmoji
+drawBit(-11,100,84);
+sexy(300,156,154);
+    
+    
+};
+
+var endSceen = function (){
+    fill(255, 255, 255);
+     //circle to go behind "space casino" text 
+fill(255, 0, 0);
+ellipse(200,54,401,80);
+//logo text
+textSize(40);
+fill(255, 255, 255);
+text("You are out of coins",basicX + 28, basicY + 100);
+};
+
+//game screen function
+var gameScreen = function() { 
+    
+    //rectangle to go behind spin button
+    fill(255, 0, 0);
+    rect(148,316,85,55);
+    
+    scene();
+    spinButton.draw();
+    homeButton.draw();
+};
+
+//disclaimers screen function
+var disclaimersScreen = function() {
+
+//background
+background(0, 0, 0);
+
+//for loop to draw stars in back 
+for (var i = 0; i < 10; i++) {
+    fill(255, 255, 255);
+    rect(random(1,384),random(1,386), 5, 5);
+}
+
+ //circle to go behind "space casino" text 
+fill(255, 0, 0);
+ellipse(200,71,307,133);
+
+
+//logo text
+textSize(40);
+fill(255, 255, 255);
+text("Space Casino",basicX + 74, basicY + 100);
+fill(196, 14, 14);
+text("Space Casino",basicX + 75, basicY + 102);
+fill(255, 255, 255);
+text("Disclaimers",basicX + 104, basicY + 148);
+fill(196, 14, 14);
+text("Disclaimers",basicX + 105, basicY + 150);
+
+//squares to go behind disclaimers text
+fill(255, 0, 0);
+rect(8,169,386,137);
+
+//disclaimers text
+textSize(18);
+fill(255, 255, 255);
+text("1. The currency used is FAKE and you will not", 15,175);
+text("be paid", 15, 193);
+text("2. We are not responsible for any gambling", 15,215); 
+text("addictions",15,233);
+text("3. We do not encourage those under 18 to play" ,15,260);
+text("the Space Casino", 15,278);
+
+//square to go behind button
+fill(255, 0, 0);
+rect(317,336,75,57);
+
+//button that brings you home
+homeButton.draw();
+};
+
+//how to play screen function
+var howToPlayScreen = function() {
+    //global variables to control x + y positions
+var basicX = 0;
+var basicY = -36;
+
+//background
+background(0, 0, 0);
+
+//for loop to draw stars in back 
+for (var i = 0; i < 10; i++) {
+    fill(255, 255, 255);
+    rect(random(1,384),random(1,386), 5, 5);
+}
+
+ //circle to go behind "space casino" text 
+fill(255, 0, 0);
+ellipse(200,71,307,133);
+
+
+//logo text
+textSize(40);
+fill(255, 255, 255);
+text("How To Play",basicX + 86, basicY + 60);
+fill(196, 14, 14);
+text("How To Play",basicX + 87, basicY + 62);
+fill(255, 255, 255);
+text("Space Casino",basicX + 75, basicY + 98);
+fill(196, 14, 14);
+text("Space Casino",basicX + 76, basicY + 100);
+
+//squares to go behind disclaimers text
+fill(255, 0, 0);
+rect(8,154,420,176);
+
+//disclaimers text
+textSize(18);
+fill(255, 255, 255);
+text("1. Click the ''spin'' button.", 15,160);
+text("2. The game will automatically ''spin'' and nine", 15,187); 
+text("random images will show up.",15,205);
+text("3. Based upon what combination of images you" ,15,232);
+text("got the Space Casino will automatically reward", 15,250);
+text("you our in game currency!", 15,268);
+text("4. If you run out of currency you lose!",15, 293);
+    
+//square to go behind button
+fill(255, 0, 0);
+rect(317,336,75,57);
+
+//button that brings you home
+homeButton.draw();
+};
+
+//draw function 
+draw = function() {
+     
+//background
+background(0, 0, 0);
+
+//for loop to draw stars in back 
+for (var i = 0; i < 10; i++) {
+    fill(255, 255, 255);
+    rect(random(1,384),random(1,386), 5, 5);
+}
+
+// if statement to switch between sceenes
+if (currentScene === 0) {
+    splashScreen(); //calls start scene 
+    }
+if (currentScene === 1) {
+    gameScreen(); //calls game scene
+    //draws the random 
+    checkTL();
+    checkTM();
+    checkTR();
+    checkML();
+    checkMM();
+    checkMR();
+    checkBL();
+    checkBM();
+    checkBR();
+    drawScore();
+     checkWin();
+     
+    }
+if (currentScene === 2) {
+    howToPlayScreen(); //calls how to play scene
+    }   
+if (currentScene === 3) {
+    disclaimersScreen(); //calls disclaimers scene 
+    }
+    if(currentScene === 5){
+        endSceen();
+    }
+    checkDel();
+    
+};
+
+//mouse clicked function
+mouseClicked = function() {
+    startButton.handleMouseClick(); //handles button click
+    howToPlayButton.handleMouseClick(); //handles button click
+    disclaimersButton.handleMouseClick(); //handles button click
+    homeButton.handleMouseClick(); //handles button click
+    
+        if(spinButton.isMouseInside()){
+       yesSpin = true;
+        tL = round(random(1,6)); 
+        tM = round(random(1,6));
+        tR = round(random(1,6)); 
+        mL = round(random(1,6));
+        mM = round(random(1,6)); 
+        mR = round(random(1,6));
+        bL = round(random(1,6)); 
+        bM = round(random(1,6));
+        bR = round(random(1,6));
+        addScore = true;
+    }
+};
