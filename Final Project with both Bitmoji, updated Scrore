@@ -351,7 +351,7 @@ if(yesSpin){
 var checkTM = function(){
 if(yesSpin){
     fill(255, 255, 255,0);
-   if(tL ===1){
+   if(tM ===1){
        rect(161,0,79,100);
       image(getImage("cute/CharacterBoy"), 178, -9, 50, 100);
     }
