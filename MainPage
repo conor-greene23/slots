@@ -15,7 +15,7 @@ var bM = 0;
 var bL = 0;
 var score=7;
 var addScore = false; 
-var delScore = false;
+
 
 //global variale to control scene
 var currentScene = 0;
@@ -250,23 +250,23 @@ var spinButton = new Button ({
 var checkWin = function(){
 if(addScore){
     if(tL === tM && tM === tR){
-        score= score+1;
+        score= score+2;
         addScore=false;
     }
     if(mL === mM && mM === mR){
-        score= score+1;
+        score= score+5;
         addScore=false;
     }
     if(bL === bM && bM === bR){
-        score= score+1;
+        score= score+3;
         addScore=false;
     }
     if(tL === mM && mM === bR){
-        score= score+1;
+        score= score+4;
         addScore=false;
     }
     if(bL === mM && mM === tR){
-        score= score+1;
+        score= score+2;
         addScore=false;
     }
     if(tL === mL && mL === bL){
@@ -274,26 +274,21 @@ if(addScore){
         addScore=false;
     }
     if(tM === mM && mM === bM){
-        score= score+1;
+        score= score+3;
         addScore=false;
     }
     if(tR === mR && mR === bR){
-        score= score+1;
+        score= score+3;
         addScore=false;
     }
     else{
-  delScore = true;
   addScore = false;
     }
 }
 };
 
 //checks to see if they should take a way coin
-var checkDel = function(){
-if(delScore) 
-{score = score -1;
-delScore=false;
-}
+var checkEnd = function(){
 if (score === 0){
     currentScene = 5;
 }
@@ -406,6 +401,7 @@ if(yesSpin){
     }
 }
 };
+
 var checkML = function(){
 if(yesSpin){
     fill(255, 255, 255,0);
@@ -791,7 +787,7 @@ if (currentScene === 3) {
     if(currentScene === 5){
         endSceen();
     }
-    checkDel();
+    checkEnd();
     
 };
 
@@ -802,6 +798,7 @@ mouseClicked = function() {
     disclaimersButton.handleMouseClick(); //handles button click
     homeButton.handleMouseClick(); //handles button click
     
+  
         if(spinButton.isMouseInside()){
        yesSpin = true;
         tL = round(random(1,6)); 
@@ -814,5 +811,6 @@ mouseClicked = function() {
         bM = round(random(1,6));
         bR = round(random(1,6));
         addScore = true;
+        score --;
     }
 };
