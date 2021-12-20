@@ -618,10 +618,12 @@ rect(98,332,204,57);
 //logo text
 textSize(40);
 fill(255, 255, 255);
-text("Space Casino",basicX + 74, basicY + 100);
+text("Space Casino",basicX + 74, basicY + 90);
 fill(196, 14, 14);
-text("Space Casino",basicX + 75, basicY + 102);
-
+text("Space Casino",basicX + 75, basicY + 89);
+textSize(12);
+fill(255, 255, 255);
+text("by Amir Rahmat and Connor Greene",100,67);
 //buttons
 startButton.draw();
 howToPlayButton.draw();
