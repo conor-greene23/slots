@@ -219,6 +219,7 @@ var startButton = new Button({
         
     }
 });
+//scoring button
 var scoringButton = new Button({
     x: 100,
     y: 336,
@@ -300,7 +301,7 @@ if(addScore){
 }
 };
 
-//checks to see if they should take a way coin
+//checks to see if the the amount of coins hits zero and to draw the end screen
 var checkEnd = function(){
 if (score === 0){
     currentScene = 5;
@@ -632,6 +633,7 @@ sexy(300,156,154);
     
     
 };
+//scoring Scene
 var scoringScene = function(){
 var basicX = 0;
 var basicY = -36;
@@ -682,6 +684,7 @@ rect(317,336,75,57);
 homeButton.draw();
 };
 
+//endScreen 
 var endSceen = function (){
     fill(255, 255, 255);
      //circle to go behind "space casino" text 
@@ -827,7 +830,7 @@ if (currentScene === 0) {
     }
 if (currentScene === 1) {
     gameScreen(); //calls game scene
-    //draws the random 
+    //draws the random images 
     checkTL();
     checkTM();
     checkTR();
@@ -848,12 +851,12 @@ if (currentScene === 3) {
     disclaimersScreen(); //calls disclaimers scene 
     }
 if (currentScene ===6) {
-    scoringScene();
+    scoringScene();// calls the scoring Scene 
 }
     if(currentScene === 5){
-        endSceen();
+        endSceen(); // calls the endScreen
     }
-    checkEnd();
+    checkEnd();//always checks to see if the end screen should be drawn
     
 };
 
@@ -879,6 +882,6 @@ mouseClicked = function() {
         bM = round(random(1,6));
         bR = round(random(1,6));
         addScore = true;
-        score --;
+        score --;//takes away a coin everytime the spin button is clicked 
     }
 };
